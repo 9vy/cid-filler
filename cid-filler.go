@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	AppVersion = "1.1"
+	AppVersion = "1.2"
 	AppAuthor  = "Gusto F. Chatami (gustof@tuta.io | github.com/9vy)"
 )
 
@@ -72,7 +72,7 @@ func lookupCodes(inputCodes []string, config *Config) ([]string, error) {
 		var result string
 		err := db.QueryRow(query, code).Scan(&result)
 		if err != nil {
-			if err != sql.ErrNoRows {
+			if err == sql.ErrNoRows {
 				results = append(results, "Not found")
 			} else {
 				return nil, fmt.Errorf("database query error: %v", err)
